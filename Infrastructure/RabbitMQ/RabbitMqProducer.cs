@@ -19,7 +19,8 @@ namespace Infrastructure.RabbitMQ
             {
                 HostName = rabbitMqSettings.HostName,
                 UserName = rabbitMqSettings.UserName,
-                Password = rabbitMqSettings.Password
+                Password = rabbitMqSettings.Password,
+                Port = rabbitMqSettings.Port
             };
 
             _connection = factory.CreateConnectionAsync().GetAwaiter().GetResult();

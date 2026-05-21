@@ -1,15 +1,11 @@
 ﻿using Domain.Db;
 using Domain.Rabbit;
-using Infrastructure.Data;
 using Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
-using UglyToad.PdfPig;
 
 namespace BackgroundWorker
 {
@@ -60,7 +56,7 @@ namespace BackgroundWorker
 
                         var documentsDbService = new DocumentsDbService(conStr);
 
-                        // Проверка - может уже обработан?
+                        // Документ уже обработан?
                         var currentStatus = await documentsDbService.GetStatusAsync(task.DocumentId);
                         if (currentStatus == Status.Completed)
                         {
@@ -91,11 +87,11 @@ namespace BackgroundWorker
                         }
                     };
 
+                    // Готовность получать сообщения
                     await channel.BasicConsumeAsync(rabbitConfig["QueueName"], false, consumer);
 
                     Console.WriteLine(" Нажмите [enter] для завершения работы.");
                     Console.ReadLine();
-
                 }
             }
         }

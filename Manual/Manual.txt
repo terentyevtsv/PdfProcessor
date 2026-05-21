@@ -1,4 +1,5 @@
-Добавление Миграции:
+КОМАНДЫ ДЛЯ РАЗРАБОТКИ
+Пример добавления Миграции:
 dotnet ef migrations add InitialCreate --context DocumentsDbContext --output-dir Migrations --startup-project ApiGateway.csproj --project ../Infrastructure/Infrastructure.csproj
 
 Применение миграции:
@@ -7,5 +8,19 @@ dotnet ef database update --context DocumentsDbContext --project Infrastructure 
 Установка глобально для ORM:
 dotnet tool install --global dotnet-ef
 
-Запуск контейнеров, нужно находиться в директории с docker-composed.yml:
-docker-compose up -d
+ЗАПУСК ПРИЛОЖЕНИЯ В ОТЛАДЧИКЕ
+Нужно установить приложение для работы с Docker-контейнерами, например Docker Desktop.
+Запустить контейнеры командой: docker-compose up -d
+
+В решении настроить запуск нескольких приложений. Сначала ApiGateway, затем BackgroundWorker.
+При запуске загрузится стартовая страница swagger.
+
+API
+Метод	URL							Описание
+POST	/api/documents				Загрузить PDF
+GET		/api/documents				Список документов
+GET		/api/documents/{id}/text	Получить текст
+
+АРХИТЕКТУРА:
+Client -> API Gateway -> RabbitMQ -> BackgroundWorker -> PostgreSQL
+

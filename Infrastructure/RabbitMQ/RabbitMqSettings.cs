@@ -1,5 +1,8 @@
 ﻿namespace Infrastructure.RabbitMQ
 {
+    /// <summary>
+    /// Класс для извлечения данных config-файлов
+    /// </summary>
     public class RabbitMqSettings
     {
         public string HostName { get; set; }

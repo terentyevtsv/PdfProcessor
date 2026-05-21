@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
+    /// <summary>
+    /// Контекст БД
+    /// </summary>
     public class DocumentsDbContext : DbContext
     {
         public DocumentsDbContext(DbContextOptions<DocumentsDbContext> options)

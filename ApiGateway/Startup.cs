@@ -1,5 +1,4 @@
-﻿using Infrastructure;
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using Infrastructure.RabbitMQ;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
@@ -18,27 +17,28 @@ namespace ApiGateway
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // 1. PostgreSQL
+            // PostgreSQL
             services.AddDbContext<DocumentsDbContext>(options =>
                 options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection")));
 
-            // 2. RabbitMQ Producer
+            // RabbitMQ Producer
             var rabbitMqSettings = _configuration
                 .GetSection("RabbitMQ")
                 .Get<RabbitMqSettings>();
             services.AddSingleton(rabbitMqSettings);  // регистрируем настройки как синглтон
             services.AddSingleton<RabbitMqProducer>();
 
-            // 3. Controllers
+            // Controllers
             services.AddControllers()
                 .AddJsonOptions(options =>
                 {
+                    // Отображение enum именованными значениями
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 });
             services.AddSwaggerGen();
 
-            // 4. Создаём папку для загрузки файлов
+            // Создаём папку для загрузки файлов
             var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
             if (!Directory.Exists(uploadPath))
                 Directory.CreateDirectory(uploadPath);

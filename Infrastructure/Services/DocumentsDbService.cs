@@ -1,7 +1,6 @@
 ﻿using Domain.Db;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Services
 {
