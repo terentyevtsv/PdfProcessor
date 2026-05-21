@@ -10,9 +10,9 @@ dotnet tool install --global dotnet-ef
 
 ЗАПУСК ПРИЛОЖЕНИЯ В ОТЛАДЧИКЕ
 Нужно установить приложение для работы с Docker-контейнерами, например Docker Desktop.
-Запустить контейнеры командой: docker-compose up -d
+Поднять окружение командой: "docker-compose up -d", находясь в корне репозитория (директория с файлом docker-compose.yml).
 
-В решении настроить запуск нескольких приложений. Сначала ApiGateway, затем BackgroundWorker.
+В решении настроить запуск нескольких приложений. Выбрать ApiGateway и BackgroundWorker.
 При запуске загрузится стартовая страница swagger.
 
 API
