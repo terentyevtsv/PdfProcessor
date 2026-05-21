@@ -1,0 +1,11 @@
+Добавление Миграции:
+dotnet ef migrations add InitialCreate --context DocumentsDbContext --output-dir Migrations --startup-project ApiGateway.csproj --project ../Infrastructure/Infrastructure.csproj
+
+Применение миграции:
+dotnet ef database update --context DocumentsDbContext --project Infrastructure --startup-project ApiGateway
+
+Установка глобально для ORM:
+dotnet tool install --global dotnet-ef
+
+Запуск контейнеров, нужно находиться в директории с docker-composed.yml:
+docker-compose up -d
